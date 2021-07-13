@@ -1,0 +1,59 @@
+# QUESTION 2 SCMA ASSIGNMENT1
+data2<-read.csv("d:/Desktop/IPL Ball-by-Ball 2008-2020.csv",header=TRUE)
+names(data2)
+library(dplyr)
+dim(data2)
+
+runs = data2 %>%
+  group_by(batsman,id)%>%
+  summarise(score=sum(batsman_runs))
+
+#View(runs)
+unique(runs$batsman)
+dim(runs)
+names(data2)
+names(runs)
+view(runs)
+
+wickets = data2 %>%
+  group_by(bowler,id)%>%
+  summarise(wicket=sum(is_wicket))
+#arrange
+view(wickets)
+unique(wickets$bowler)
+
+#Plot data
+#Histogram: Equal length intervals of bowlers
+
+Daniel = wickets[wickets$bowler == 'DL Vettori',]
+
+hist(Daniel$wicket,freq=F,breaks = c(0,1,2,3,4,5),main = "Take a look to
+data...") #the graph shows that Vettori maximum took 5 wickets. But the 
+#probability of him taking 5 wickets is 0.1. Thus the probability of him
+#taking 1 wicket is 0.8 which means he takes only a wicket in most matches
+
+m=mean(Daniel$wicket);std=sd(Daniel$wicket);m;std
+lines(density(Daniel$wicket),col="blue")
+#poisson
+?? goodfit
+library(vcd)
+gf.Daniel<-goodfit(Daniel$wicket,type = "poisson",par = NULL)
+summary(gf.Daniel)
+plot(gf.Daniel,main="Daniel Wicket Distribution")#In t
+
+table(Daniel$wicket) #This distribution shows that Daniel Vettori took 5 wickets only
+#in one occasion while he took no wickets on 15 occasions
+
+#BATSMEN RUNS DISTRIBUTION
+#CONTINUOUS DISTRIBUTION
+
+library(fitdistrplus) :
+  Mccull = runs[runs$batsman == 'BB McCullum',]
+View(Mccull)
+
+hist(Mccull$score, 10)
+#This histogram shows the runs distribution of BB Mccullum and it shows
+#that that the probability that he scores a century is 0.5 and 
+#0.19 is the probability that he scores 50 runs is 0.19
+
+table(Mccull$score)
