@@ -1,4 +1,4 @@
-# QUESTION 2 SCMA ASSIGNMENT1
+# SCMA ASSIGNMENT QUESTION A1(b)
 data2<-read.csv("d:/Desktop/IPL Ball-by-Ball 2008-2020.csv",header=TRUE)
 names(data2)
 library(dplyr)
